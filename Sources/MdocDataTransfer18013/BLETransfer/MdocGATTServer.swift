@@ -51,14 +51,11 @@ public class MdocGattServer: ObservableObject {
 	var subscribeCount: Int = 0
 	var initSuccess:Bool = false
 	
-	public init(parameters: [String: Any]) throws {
-		guard let (docs, devicePrivateKeys, iaca, dauthMethod) = MdocHelpers.initializeData(parameters: parameters) else {
-			throw MdocHelpers.makeError(code: .documents_not_provided)
-		}
-		self.docs = docs
-		self.devicePrivateKeys = devicePrivateKeys
-		self.iaca = iaca
-		self.dauthMethod = dauthMethod
+	public init(presentationState: MDocPresentationState) throws {
+        self.docs = presentationState.docs
+        self.devicePrivateKeys = presentationState.devicePrivateKeys
+        self.iaca = presentationState.iaca
+        self.dauthMethod = presentationState.dauthMethod
 		status = .initialized
 		initSuccess = true
 		handleStatusChange(status)
